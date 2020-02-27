@@ -1,21 +1,12 @@
-# Must call r script app.R for deployment.
-#rm(list = ls())
-
 # setup libraries.
-#install.packages("DT")
 library(rio)
 library(shiny)
-#library(visreg)
-#library(rvest)
 library(magrittr)
-#library(DT) # Data table
 library(regplot)
 library(shinythemes)
 library(plotly)
 library(reshape2)
-#library(epiDisplay)
 library(rms)
-#library(car)
 
 two_dp <- function(x){
     formatC(x, digits = 2, format = "f")
@@ -139,11 +130,9 @@ three_d_plot_with_regression_surface <- function(df = for_shiny, reg_model = "Lo
     
     df$predicted_outcome %>% zero_dp
     
+    
     df %<>% data.frame
     
-    
-    #print("df is now:")
-    #str(df) %>% print
     
     n_points <- 25
     graph_reso_first_covar <- (max(df[, covars[1], drop = FALSE]) - min(df[, covars[1], drop = FALSE]))/n_points
@@ -169,9 +158,7 @@ three_d_plot_with_regression_surface <- function(df = for_shiny, reg_model = "Lo
         model_surface$outcome <- 1/((-(predict(model, newdata = model_surface, type = "lp")) %>% exp) + 1)  
     }
     
-    #print("model surface outcome is:")
-    #print(str(model_surface$outcome))
-    
+ 
     model_surface <- acast(model_surface, as.formula(paste0(covars[2], "~", covars[1])),
                            value.var = "outcome") #y ~ x
     surf <- cbind(axis_x, axis_y, model_surface) %>% data.frame
@@ -216,7 +203,7 @@ three_d_plot_with_regression_surface <- function(df = for_shiny, reg_model = "Lo
         zaxis = zaxis
     )
     
-    # names(df) <- 
+ 
     
     #- Plot 
     plot_3d <- plot_ly( data = df, 
