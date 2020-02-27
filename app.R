@@ -168,8 +168,8 @@ three_d_plot_with_regression_surface <- function(df = for_shiny, reg_model = "Lo
         model_surface$outcome <- 1/((-(predict(model, newdata = model_surface, type = "lp")) %>% exp) + 1)  
     }
     
-    print("model surface outcome is:")
-    print(str(model_surface$outcome))
+    #print("model surface outcome is:")
+    #print(str(model_surface$outcome))
     
     model_surface <- acast(model_surface, as.formula(paste0(covars[2], "~", covars[1])),
                            value.var = "outcome") #y ~ x
