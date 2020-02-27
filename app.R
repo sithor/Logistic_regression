@@ -46,7 +46,7 @@ three_d_plot_with_regression_surface <- function(df = for_shiny, reg_model = "Lo
     
     run_model <- function(df1 = df, reg_model1 = reg_model, covars1 = covars, outcome1 = outcome, adjust = adjusted_or_crude){
         
-        print(head(df1))
+        #print(head(df1))
         
        
    
@@ -169,8 +169,8 @@ three_d_plot_with_regression_surface <- function(df = for_shiny, reg_model = "Lo
         model_surface$outcome <- 1/((-(predict(model, newdata = model_surface, type = "lp")) %>% exp) + 1)  
     }
     
-    print("model surface outcome is:")
-    print(str(model_surface$outcome))
+    #print("model surface outcome is:")
+    #print(str(model_surface$outcome))
     
     model_surface <- acast(model_surface, as.formula(paste0(covars[2], "~", covars[1])),
                            value.var = "outcome") #y ~ x
@@ -330,7 +330,11 @@ ui <- fluidPage(theme = shinytheme("cyborg"), ## provides theme for shiny app...
                                  # Sidebar layout with input and output definitions ----
                                  # 3d plot tab----
                                  mainPanel("This plot illustrates the relationship between cot death (case or controls), 
-                                            maternal age and birth weight.",
+                                            maternal age and birth weight. Select the type of model and 
+                                           whether or not you want a crude or adjusted model. A nomogram is another way of 
+                                           visualising a regression model. Click on ", tags$b(HTML("<font color = 'white' >", "Regression nomogram", "</font>")),
+                                           " at the top of the page to see 
+                                           the corresponding nomogram of the model.",
                                            br(),
                                            br(),
                                            plotlyOutput("three_d_plot", width = "100%", height = "100%"))
